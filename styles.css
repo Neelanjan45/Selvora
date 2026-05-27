@@ -1,3 +1,10 @@
+/* 
+Color Palette:
+- Primary: #411420 / (65, 20, 32) (Dark Red)
+- Secondary: #873260 / (135, 50, 96) (Boysenberry)
+- Accent: #ffffe9 / (255, 255, 233) (Light Cream)
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -37,7 +44,7 @@ h2 {
 }
 
 .section_title {
-    color: #873260;
+    color: #411420;
 }
 
 /* Navbar Style Start */
@@ -51,7 +58,7 @@ h2 {
     align-items: center;
     justify-content: space-between;
 
-    background: rgba(135, 50, 96, 0.99);
+    background: rgba(65, 20, 32, 0.93);
     backdrop-filter: blur(10px);
     z-index: 1000;
 }
@@ -106,6 +113,7 @@ nav ul {
 #hero_text {
     text-align: center;
     text-transform: uppercase;
+    color: #873260;
 }
 
 #hero_text h1 {
@@ -149,31 +157,67 @@ nav ul {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     border:1px solid rgba(0,0,0,0.05);
 
-    color: rgba(135, 50, 96, 0.99);
+    color: rgba(65, 20, 32, 0.93);
+    position: relative;
+    width: 250px;
+    height: 300px;
+    overflow: hidden;
 }
 
-.collection_item:hover {
-    transform: translateY(-5px);
+.card_front,
+.card_back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-.item_img {
-    width: 220px;
-    object-fit: cover;
-    aspect-ratio: 1/1;
+.card_front {
+    z-index: 1;
+
+    opacity: 1;
+    transform: scale(1);
+}
+
+.card_back {
+    z-index: 0;
+    opacity: 0;
+    transform:translateY(15px);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    background: rgba(65, 20, 32, 0.93);
+    color: #ffffe9;
 }
 
 .item_name {
     font-size: 20px;
-    margin-top: 30px;
     letter-spacing: 2px;
     font-weight: 500;
 }
 
 .item_notes {
     font-size: 14px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
     font-weight: 500;
+}
+
+.collection_item:hover .card_front {
+    opacity: 0;
+    transform: scale(1.05);
+}
+
+.collection_item:hover .card_back {
+    opacity: 1;
+    transform:translateY(0);
 }
 
 /* Collection Section Style End */
@@ -200,9 +244,9 @@ nav ul {
 
 #featured_content {
     flex: 2;
-    background-color: rgba(135, 50, 96, 0.99);
+    background-color: rgba(65, 20, 32, 0.93);
     color: #ffffe9;
-    padding: 40px;
+    padding: 60px;
     font-weight: 100;
 
     display:flex;
@@ -225,12 +269,13 @@ nav ul {
     margin-bottom:40px;
 }
 
-#featured_explore {
+#featured_explore,
+.item_detail {
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
     background: #ffffe9;
-    color: #873260;
+    color: #411420;
     border: none;
     padding: 14px 32px;
     cursor: pointer;
@@ -260,7 +305,7 @@ button:hover {
             font-size: 28px;
     }
 
-    #hero-text h1{
+    #hero_text h1{
         font-size: 42px;
         letter-spacing: 4px;
     }
