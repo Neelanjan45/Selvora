@@ -172,10 +172,11 @@ nav ul {
     width: 100%;
     height: 100%;
 
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .card_front {
+    object-fit: cover;
     z-index: 1;
 
     opacity: 1;
@@ -267,6 +268,7 @@ nav ul {
 
 #featured_description{
     margin-bottom:40px;
+    text-align: justify;
 }
 
 #featured_explore,
@@ -292,11 +294,73 @@ button:hover {
 
 /* About Section Style Start */
 
+#about_content {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 60px;
+}
+
+#about_img {
+    flex: 1;
+    width: 100%;
+    border-radius: 16px;
+}
+
+#about_text {
+    flex: 2;
+    font-size: 18px;
+    font-weight: 100;
+    text-align: justify;
+    background-color: rgba(65, 20, 32, 0.93);
+    color: #ffffe9;
+    padding: 60px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
 /* About Section Style End */
 
-/* Social Section Style Start */
+/* footer Section Style Start */
 
-/* Social Section Style End */
+#footer {
+    background-color: rgba(65, 20, 32, 0.93);
+    color: #ffffe9;
+    padding: 40px 5%;
+    display: flex;
+    margin-top: 60px;
+    align-items: center;
+}
+
+#copyright,
+#social {
+    font-size: 18px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+}
+
+#copyright {
+    gap: 10px;
+}
+
+#copyright > span {
+    font-size: 30px;
+}
+
+#social {
+    margin-left: auto;
+    gap: 20px;
+}
+
+#social_icon {
+    color: #ffffe9;
+    font-size: 30px;
+}
+
+/* footer Section Style End */
 
 /* Mobile Responsive Style Start */
 
@@ -313,11 +377,6 @@ button:hover {
     section {
         padding: 60px 5%;
     }
-    
-    #featured_container {
-        flex-direction: column;
-        text-align: center;
-    }
 
     #featured_img img {
         width: 100%;
@@ -333,6 +392,44 @@ button:hover {
         gap:18px;
         flex-wrap:wrap;
         justify-content:center;
+    }
+
+    #featured_container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #featured_content {
+        padding: 40px;
+    }
+
+    #featured_title {
+        text-align: center;
+    }
+
+    #featured_tagline {
+        font-size: 18px;
+    }
+
+    #about_content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    #copyright,
+    #social {
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    #social {
+        margin-left: 0;
     }
 }
 
