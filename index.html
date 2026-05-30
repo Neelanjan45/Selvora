@@ -4,27 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selvora - Nature & Nostalgia</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <main>
-        <header id="navbar">
-            <div id="logo">
-                <img src="Images/Selvora Beige.svg" alt="Selvora Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li><a class="nav_link" href="#collection">Collection</a></li>
-                    <li><a class="nav_link" href="#about_preview">About</a></li>
-                    <li><a class="nav_link" href="#footer">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
+        <div id="navbar-container"></div>
 
         <section id="hero_section">
             <img src="Images/Logo 4.png" alt="Selvora Logo" id="hero_section_img">
@@ -42,7 +32,7 @@
                     <div class="card_back">
                         <h4 class="item_name">Fragrance 1</h4>
                         <p class="item_notes">Vanilla &bull; Tonka Bean &bull; Cedar</p>
-                        <button class="item_detail">View Details</button>
+                        <a href="./product.html" class="item_detail">View Details</a>
                     </div>
                 </div>
                 <div class="collection_item">
@@ -50,7 +40,7 @@
                     <div class="card_back">
                         <h4 class="item_name">Fragrance 2</h4>
                         <p class="item_notes">Sandalwood &bull; Patchouli &bull; Jasmine</p>
-                        <button class="item_detail">View Details</button>
+                        <a href="./product.html" class="item_detail">View Details</a> 
                     </div>
                 </div>
                 <div class="collection_item">
@@ -58,7 +48,7 @@
                     <div class="card_back">
                         <h4 class="item_name">Fragrance 3</h4>
                         <p class="item_notes">Citrus &bull; Bergamot &bull; Lavender</p>
-                        <button class="item_detail">View Details</button>
+                        <a href="./product.html" class="item_detail">View Details</a>     
                     </div>
                 </div>
                 <div class="collection_item">
@@ -66,7 +56,7 @@
                     <div class="card_back">
                         <h4 class="item_name">Fragrance 4</h4>
                         <p class="item_notes">Rose &#8226; Peony &#8226; Musk</p>
-                        <button class="item_detail">View Details</button>
+                        <a href="./product.html" class="item_detail">View Details</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +85,9 @@
             </div>
         </section>
 
-        <footer id="footer">
-            <p id="copyright"><span>&copy;</span> 2024 Selvora. All rights reserved.</p>
-            <p id="social">
-                Follow Us: <a href="https://www.instagram.com/selvora.aromatic/" target="_blank"><i class="fa-brands fa-instagram" id="social_icon"></i></a>
-            </p>
-        </footer>
+        <div id="footer-container"></div>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
