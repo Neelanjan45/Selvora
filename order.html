@@ -15,30 +15,67 @@
     <main>
         <div id="order_form_container">
             <div id="order_form">
-
                 <div id="order_form_header">
                     <img src="Images/Selvora Beige.svg" alt="SELVORA" id="order_form_header_logo">
                 </div>
-                <div id="order_form_body">
+                <form id="order_form_body">
                     <div class="form_group">
                         <div class="form_label">Name</div>
-                        <input type="text" class="form_field">
+                        <input type="text" class="form_field" id="cust_name" required>
                     </div>
                     <div class="form_group">
                         <div class="form_label">Email</div>
-                        <input type="text" class="form_field">
+                        <input type="email" class="form_field" id="cust_email" required>
                     </div>
                     <div class="form_group">
                         <div class="form_label">Contact</div>
-                        <input type="text" class="form_field">
+                        <input type="tel" class="form_field" id="cust_contact" required>
                     </div>
                     
-                </div>
+                    <div class="form_group">
+                        <div class="form_label">Product Name</div>
+                        <input type="text" class="form_field" value="Discovery Set" readonly  id="prod_name">
+                    </div>
+                    <div class="form_group">
+                        <div class="form_label">Quantity</div>
+                        <input type="number" class="form_field" value="1" id="prod_quantity" onclick=calcPrice() min="1">
+                    </div>
+                    <div class="form_group">
+                        <div class="form_label">Price</div>
+                        <input type="hidden" value="&#8377; 499" id="prod_base_price">
+                        <input type="text" class="form_field" value="&#8377; 499" id="total_price" readonly>
+                    </div>
+                    <div class="form_group">
+                        <div class="form_label">Shipping Address</div>
+                        <div id="address_group">
+                            <input type="textarea" class="form_field" id="adrs_line_one">
+                            <input type="textarea" class="form_field" id="adrs_line_two">
+                            <div id="address_inner_group">
+                                <div class="form_label">City</div>
+                                <input type="text" class="form_field" id="adrs_city" required>
+                                <div class="form_label right_label">Dist.</div>
+                                <input type="text" class="form_field" id="adrs_district" required>
+                            </div>
+                            <div id="address_inner_group">
+                                <div class="form_label">PIN</div>
+                                <input type="text" class="form_field" id="adrs_pin" required>
+                                <div class="form_label right_label">State</div>
+                                <input type="text" class="form_field" id="adrs_state" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <!-- <div class="form_label" id="order_form_submit">Submit</div> -->
+                         <input type="submit" class="form_label" id="order_form_submit">
+                    </div>
+                </form>
                 <div id="order_form_footer">
                     <p>Follow Us: <a href="https://www.instagram.com/selvora.aromatic/" target="_blank"><i class="fa-brands fa-instagram" id="order_form_social"></i></a></p>
                 </div>
             </div>
         </div>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
