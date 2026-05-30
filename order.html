@@ -4,10 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selvora - Nature & Nostalgia</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <main>
-        <h2>Order Summary</h2>
+        <div id="order_form_container">
+            <div id="order_form">
+
+                <div id="order_form_header">
+                    <img src="Images/Selvora Beige.svg" alt="SELVORA" id="order_form_header_logo">
+                </div>
+                <div id="order_form_body">
+                    <div class="form_group">
+                        <div class="form_label">Name</div>
+                        <input type="text" class="form_field">
+                    </div>
+                    <div class="form_group">
+                        <div class="form_label">Email</div>
+                        <input type="text" class="form_field">
+                    </div>
+                    <div class="form_group">
+                        <div class="form_label">Contact</div>
+                        <input type="text" class="form_field">
+                    </div>
+                    
+                </div>
+                <div id="order_form_footer">
+                    <p>Follow Us: <a href="https://www.instagram.com/selvora.aromatic/" target="_blank"><i class="fa-brands fa-instagram" id="order_form_social"></i></a></p>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>
