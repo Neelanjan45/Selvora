@@ -1,93 +1,446 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selvora - Nature & Nostalgia</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Selvora — fragrance as memory, made tangible." />
+  <title>Selvora — Fragrance as Memory</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+  <div class="site-shell">
+    <!-- <header class="topbar">
+      <a class="brand-mark" href="#home" aria-label="Selvora home">
+        SELVORA
+        <span>FRAGRANCE STUDIO</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#story">Our Story</a>
+        <a href="#contact">Contact</a>
+        <a href="/cart">Cart</a>
+      </nav>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+        ☰
+      </button>
+    </header> -->
+
+    <!-- Floating navigation -->
+    <nav class="floating-nav" aria-label="Primary navigation">
+
+        <a
+            class="floating-nav-item is-active"
+            href="index.html"
+            aria-label="Home"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 10.5 12 3l9 7.5"></path>
+                    <path d="M5.5 9.5V21h13V9.5"></path>
+                    <path d="M9.5 21v-7h5v7"></path>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Home
+            </span>
+        </a>
+
+
+        <a
+            class="floating-nav-item"
+            href="collection.html"
+            aria-label="Collection"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 3h6"></path>
+                    <path d="M10 3v4l-2 3v10h8V10l-2-3V3"></path>
+                    <path d="M8 11h8"></path>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Collection
+            </span>
+        </a>
+
+
+        <a
+            class="floating-nav-item"
+            href="index.html#story"
+            aria-label="Our story"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4C10 4 4 9 4 17c0 2 1 3 3 3 8 0 13-6 13-16Z"></path>
+                    <path d="M4 20 15 9"></path>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Our story
+            </span>
+        </a>
+
+
+        <!-- <a
+            class="floating-nav-item"
+            href="index.html#testimonials"
+            aria-label="Testimonials"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-5 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z"></path>
+                    <path d="M8 8h8"></path>
+                    <path d="M8 11h5"></path>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Testimonials
+            </span>
+        </a> -->
+
+
+        <a
+            class="floating-nav-item"
+            href="index.html#contact"
+            aria-label="Contact"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect
+                        x="3"
+                        y="5"
+                        width="18"
+                        height="14"
+                        rx="1"
+                    ></rect>
+
+                    <path d="m4 7 8 6 8-6"></path>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Contact
+            </span>
+        </a>
+
+
+        <a
+            class="floating-nav-item"
+            href="cart.html"
+            aria-label="Cart"
+        >
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.2 11h10.9L21 7H6"></path>
+                    <circle cx="9" cy="19" r="1.5"></circle>
+                    <circle cx="17" cy="19" r="1.5"></circle>
+                </svg>
+            </span>
+
+            <span class="floating-nav-label">
+                Cart
+            </span>
+
+            <span
+                class="cart-count"
+                id="cartCount"
+                aria-label="Items in cart"
+            >
+                0
+            </span>
+        </a>
+
+    </nav>
+
+
     <main>
-        <div id="navbar-container"></div>
+      <section class="hero" id="home" aria-label="Selvora featured campaigns">
+        <div class="hero-loading" id="bannerLoading">
+          <span>Loading Selvora</span>
+        </div>
 
-        <section id="hero_section">
-            <img src="Images/Logo 4.png" alt="Selvora Logo" id="hero_section_img">
-            <div id="hero_text">
-                <h1>Selvora</h1>
-                <p>Nature & Nostalgia</p>
-            </div>
-        </section>
-        
-        <section id="collection">
-            <h2 class="section_title">Our Collection</h2>
-            <div id="collection_display">
-                <div class="collection_item">
-                    <img src="Images/Short Logo 2.png" alt="Demo Image" class="card_front">
-                    <div class="card_back">
-                        <h4 class="item_name">Fragrance 1</h4>
-                        <p class="item_notes">Vanilla &bull; Tonka Bean &bull; Cedar</p>
-                        <a href="./product.html" class="item_detail">View Details</a>
-                    </div>
-                </div>
-                <div class="collection_item">
-                    <img src="Images/Short Logo 2.png" alt="Demo Image" class="card_front">
-                    <div class="card_back">
-                        <h4 class="item_name">Fragrance 2</h4>
-                        <p class="item_notes">Sandalwood &bull; Patchouli &bull; Jasmine</p>
-                        <a href="./product.html" class="item_detail">View Details</a> 
-                    </div>
-                </div>
-                <div class="collection_item">
-                    <img src="Images/Short Logo 2.png" alt="Demo Image" class="card_front">
-                    <div class="card_back">
-                        <h4 class="item_name">Fragrance 3</h4>
-                        <p class="item_notes">Citrus &bull; Bergamot &bull; Lavender</p>
-                        <a href="./product.html" class="item_detail">View Details</a>     
-                    </div>
-                </div>
-                <div class="collection_item">
-                    <img src="Images/Short Logo 2.png" alt="Demo Image" class="card_front">
-                    <div class="card_back">
-                        <h4 class="item_name">Fragrance 4</h4>
-                        <p class="item_notes">Rose &#8226; Peony &#8226; Musk</p>
-                        <a href="./product.html" class="item_detail">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="banner-track" id="bannerTrack" hidden></div>
 
-        <section id="featured_fragrance">
-            <h2 class="section_title">Featured Fragrance</h2>
-            <div id="featured_container">
-                <div id="featured_img">
-                    <img src="Images/Short Logo 2.png" alt="Demo Image">
-                </div>
-                <div id="featured_content">
-                    <h2 id="featured_title">Selvora</h2>
-                    <p id="featured_tagline">Smoky woods with cold spice.</p>
-                    <p id="featured_description">Experience the warmth of smoky woods intertwined with the coolness of spicy notes, creating a captivating olfactory journey.</p>
-                    <button id="featured_explore">Explore Fragrances</button>
-                </div>
-            </div>
-        </section>
+        <button
+          class="banner-control banner-prev"
+          id="bannerPrev"
+          type="button"
+          aria-label="Previous banner"
+          hidden
+        >
+          <span aria-hidden="true">←</span>
+        </button>
 
-        <section id="about_preview">
-            <h2 class="section_title">About Selvora</h2>
-            <div id="about_content">
-                <p id="about_text">Selvora is a fragrance brand that draws inspiration from nature and nostalgia. Our scents are crafted to evoke memories and emotions, transporting you to serene landscapes and cherished moments. Each fragrance is a blend of carefully selected ingredients, designed to create a unique olfactory experience that resonates with your soul.</p>
-                <img src="Images/Short Logo 2.png" alt="Demo Image" id="about_img">
-            </div>
-        </section>
+        <button
+          class="banner-control banner-next"
+          id="bannerNext"
+          type="button"
+          aria-label="Next banner"
+          hidden
+        >
+          <span aria-hidden="true">→</span>
+        </button>
 
-        <div id="footer-container"></div>
+        <div class="banner-dots" id="bannerDots" hidden aria-label="Banner selection"></div>
+
+        <div class="hero-footer">
+          <span class="scroll-note">Scroll to discover</span>
+          <span class="hero-number" id="bannerCounter">01 / 01</span>
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="editorial-story">
+          <div class="reveal">
+            <div class="section-label">01 / The Selvora philosophy</div>
+            <h2 class="story-heading">
+              Fragrance is not only what you wear.
+              It is what <em>remains.</em>
+            </h2>
+          </div>
+
+          <div class="story-copy reveal">
+            <p>
+              Selvora explores fragrance as an atmosphere—something felt
+              before it is understood and remembered long after it has passed.
+            </p>
+
+            <p>
+              Each composition is created around a mood, a moment, or an
+              impression: the brightness of morning, the softness after rain,
+              the quiet of late afternoon, or the depth of evening.
+            </p>
+
+            <p>
+              We believe fragrance does not need to announce itself.
+              It can unfold slowly, remain close, and become part of the
+              person wearing it.
+            </p>
+
+            <div class="story-signature">— Selvora</div>
+          </div>
+        </div>
+
+        <div class="story-image reveal" role="img" aria-label="Botanical details in soft natural light">
+          <div class="story-image-caption">A study in light, texture and memory</div>
+        </div>
+      </section>
+
+      <!-- <section class="section testimonials-section" id="testimonials">
+        <div class="reveal">
+          <div class="section-label">02 / Notes from those who wore it</div>
+          <h2 class="testimonial-heading">What remains.</h2>
+        </div>
+
+        <div class="testimonial-layout">
+          <div class="testimonial-intro reveal">
+            <p>
+              A fragrance is personal. These are small impressions from
+              people who allowed Selvora to become part of their day.
+            </p>
+          </div>
+
+          <div class="testimonial-board reveal" aria-label="Customer testimonials">
+            <button class="note" type="button" aria-label="Read testimonial from Ananya">
+              <div class="note-quote">“Soft, clean and strangely familiar.”</div>
+              <div class="note-meta">Ananya / First Light</div>
+            </button>
+
+            <button class="note" type="button" aria-label="Read testimonial from Rohan">
+              <div class="note-quote">“It feels like a rainy afternoon.”</div>
+              <div class="note-meta">Rohan / Rainwashed</div>
+            </button>
+
+            <button class="note" type="button" aria-label="Read testimonial from Mira">
+              <div class="note-quote">“The kind of scent people notice only after coming closer.”</div>
+              <div class="note-meta">Mira / Last Echo</div>
+            </button>
+
+            <button class="note" type="button" aria-label="Read testimonial from Arjun">
+              <div class="note-quote">“Beautifully understated.”</div>
+              <div class="note-meta">Arjun / Afterglow</div>
+            </button>
+          </div>
+        </div>
+      </section> -->
+
+      <section class="section contact-section" id="contact">
+        <div class="contact-content contact-layout reveal">
+
+          <div class="contact-copy-block">
+            <div class="section-label">03 / Stay connected</div>
+            <h2 class="contact-heading">Let’s stay<br />in touch.</h2>
+
+            <p class="contact-copy">
+              For fragrance enquiries, collaborations, gifting, or custom
+              creations, write to us.
+            </p>
+          </div>
+
+          <div class="contact-links" aria-label="Contact options">
+            <a class="contact-link" href="mailto:hello@selvora.in">
+              <span class="contact-link-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="14" rx="1"></rect>
+                  <path d="m4 7 8 6 8-6"></path>
+                </svg>
+              </span>
+              <span class="contact-link-text">
+                <small>Email</small>
+                <strong>hello@selvora.in</strong>
+              </span>
+              <span class="contact-link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="contact-link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+              <span class="contact-link-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.4" cy="6.6" r="1"></circle>
+                </svg>
+              </span>
+              <span class="contact-link-text">
+                <small>Instagram</small>
+                <strong>@selvora</strong>
+              </span>
+              <span class="contact-link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <button class="contact-link contact-feedback-trigger" type="button" data-open-feedback>
+              <span class="contact-link-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-5 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z"></path>
+                  <path d="M8 8h8"></path>
+                  <path d="M8 11h5"></path>
+                </svg>
+              </span>
+              <span class="contact-link-text">
+                <small>Share your experience</small>
+                <strong>Leave feedback</strong>
+              </span>
+              <span class="contact-link-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="feedback-modal" id="feedbackModal" hidden aria-hidden="true">
+        <div class="feedback-modal-backdrop" data-close-feedback></div>
+
+        <section class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+          <button class="feedback-close" type="button" aria-label="Close feedback form" data-close-feedback>×</button>
+
+          <div class="section-label">Share your experience</div>
+
+          <h2 class="feedback-title" id="feedbackTitle">
+            Tell us what<br /><em>remains.</em>
+          </h2>
+
+          <p class="feedback-intro">
+            Choose the fragrance you experienced and leave us a small impression.
+            Your feedback may become part of Selvora’s story.
+          </p>
+
+          <form id="feedbackForm" class="feedback-form">
+            <div class="feedback-field">
+              <label for="feedbackProduct">Fragrance *</label>
+              <select id="feedbackProduct" name="product" required>
+                <option value="">Loading fragrances...</option>
+              </select>
+            </div>
+
+            <div class="feedback-field">
+              <span class="feedback-label">Your rating *</span>
+              <div class="rating-picker" role="radiogroup" aria-label="Rating">
+                <label><input type="radio" name="rating" value="1" required /><span>1</span></label>
+                <label><input type="radio" name="rating" value="2" /><span>2</span></label>
+                <label><input type="radio" name="rating" value="3" /><span>3</span></label>
+                <label><input type="radio" name="rating" value="4" /><span>4</span></label>
+                <label><input type="radio" name="rating" value="5" /><span>5</span></label>
+              </div>
+            </div>
+
+            <div class="feedback-field">
+              <label for="feedbackMessage">Your experience *</label>
+              <textarea id="feedbackMessage" name="feedback" rows="5" maxlength="1000"
+                placeholder="What did the fragrance make you feel?" required></textarea>
+            </div>
+
+            <div class="feedback-form-grid">
+              <div class="feedback-field">
+                <label for="feedbackName">Name</label>
+                <input id="feedbackName" name="name" type="text" maxlength="80" placeholder="Your name" />
+              </div>
+
+              <div class="feedback-field">
+                <label for="feedbackEmail">Email</label>
+                <input id="feedbackEmail" name="email" type="email" autocomplete="email" placeholder="Optional" />
+              </div>
+            </div>
+
+            <label class="feedback-consent">
+              <input id="feedbackConsent" name="consent" type="checkbox" />
+              <span>I'd like my name to be shown with my review.</span>
+            </label>
+
+            <button class="feedback-submit" type="submit">
+              <span>Send feedback</span>
+              <span aria-hidden="true">→</span>
+            </button>
+
+            <p class="feedback-status" id="feedbackStatus" role="status" hidden></p>
+          </form>
+        </section>
+      </div>
     </main>
 
-    <script src="script.js"></script>
+    <footer class="footer">
+      <div class="footer-brand">
+        Selvora
+        <small>Fragrance as memory, made tangible.</small>
+      </div>
+
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <a href="#home">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#story">Our Story</a>
+        <!-- <a href="#testimonials">Testimonials</a> -->
+        <a href="cart.html">Cart</a>
+        <button class="footer-feedback-link" type="button" data-open-feedback>Leave feedback</button>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <a href="mailto:hello@selvora.in">Email</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://hausofkala.com/" target="_blank" rel="noopener">Haus of Kala</a>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Selvora / Haus of Kala</span>
+        <span>Made with intention.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="home.js"></script>
+  <script src="feedback.js"></script>
 </body>
 </html>
