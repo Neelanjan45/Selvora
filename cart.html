@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Cart | Selvora</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+
+<div class="site-shell">
+
+    <!-- =====================================================
+         FLOATING NAV
+         ===================================================== -->
+
+    <nav class="floating-nav" aria-label="Main navigation">
+
+        <a class="floating-nav-item" href="index.html" aria-label="Home">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 10.5 12 4l8 6.5"></path>
+                    <path d="M6 9.5V20h12V9.5"></path>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Home</span>
+        </a>
+
+        <a class="floating-nav-item" href="collection.html" aria-label="Collection">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 3h6"></path>
+                    <path d="M10 3v4l-2 3v10h8V10l-2-3V3"></path>
+                    <path d="M8 11h8"></path>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Collection</span>
+        </a>
+
+        <a class="floating-nav-item" href="index.html#story" aria-label="Our story">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4C10 4 4 9 4 17c0 2 1 3 3 3 8 0 13-6 13-16Z"></path>
+                    <path d="M4 20 15 9"></path>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Our story</span>
+        </a>
+
+        <!-- <a class="floating-nav-item" href="index.html#testimonials" aria-label="Testimonials">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-5 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z"></path>
+                    <path d="M8 8h8"></path>
+                    <path d="M8 11h5"></path>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Testimonials</span>
+        </a> -->
+
+        <a class="floating-nav-item" href="index.html#contact" aria-label="Contact">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="1"></rect>
+                    <path d="m4 7 8 6 8-6"></path>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Contact</span>
+        </a>
+
+        <a class="floating-nav-item is-active" href="cart.html" aria-label="Cart">
+            <span class="floating-nav-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.2 11h10.9L21 7H6"></path>
+                    <circle cx="9" cy="19" r="1.5"></circle>
+                    <circle cx="17" cy="19" r="1.5"></circle>
+                </svg>
+            </span>
+            <span class="floating-nav-label">Cart</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="cart-page">
+
+        <header class="cart-hero">
+            <div class="section-label">Selvora / Your selection</div>
+            <h1>Your <em>cart.</em></h1>
+            <p>
+                A few scents waiting to become part of your story.
+            </p>
+        </header>
+
+
+        <!-- EMPTY STATE -->
+
+        <section id="cartEmpty" class="cart-empty" hidden>
+            <div class="section-label">Nothing here yet</div>
+            <h2>Your cart is waiting for a story.</h2>
+            <p>Explore the collection and find the fragrance that feels like yours.</p>
+            <a class="cart-button cart-button-light" href="collection.html">
+                Discover fragrances
+            </a>
+        </section>
+
+
+        <!-- CART -->
+
+        <section id="cartContent" class="cart-layout" hidden>
+
+            <div class="cart-items-column">
+
+                <div class="cart-section-heading">
+                    <div>
+                        <div class="section-label">Selected fragrances</div>
+                        <h2>Your selection</h2>
+                    </div>
+
+                    <span id="cartItemCount" class="cart-item-count"></span>
+                </div>
+
+                <div id="cartItems" class="cart-items"></div>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <aside class="cart-summary">
+
+                <div class="section-label">Order summary</div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="summarySubtotal">₹0</strong>
+                </div>
+
+                <div id="couponSummaryRow" class="summary-row summary-discount" hidden>
+                    <span>
+                        Discount
+                        <small id="summaryCouponCode"></small>
+                    </span>
+                    <strong id="summaryDiscount">−₹0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <strong id="summaryShipping">₹0</strong>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong id="summaryTotal">₹0</strong>
+                </div>
+
+
+                <!-- COUPON -->
+
+                <div class="coupon-block">
+
+                    <label for="couponCode">
+                        Have a coupon?
+                    </label>
+
+                    <div class="coupon-input-row">
+                        <input
+                            type="text"
+                            id="couponCode"
+                            name="coupon"
+                            placeholder="Coupon code"
+                            autocomplete="off"
+                            maxlength="40"
+                        >
+
+                        <button
+                            type="button"
+                            id="applyCoupon"
+                            class="coupon-button"
+                        >
+                            Apply
+                        </button>
+                    </div>
+
+                    <p
+                        id="couponMessage"
+                        class="coupon-message"
+                        aria-live="polite"
+                    ></p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="placeOrderButton"
+                    class="cart-button cart-button-dark"
+                >
+                    Place order
+                </button>
+
+                <p class="cart-note">
+                    No payment is collected online.
+                    After you submit the order, we will contact you
+                    personally to confirm availability, payment and delivery.
+                </p>
+
+            </aside>
+
+        </section>
+
+
+        <!-- ORDER FORM -->
+
+        <section id="orderSection" class="order-section" hidden>
+
+            <div class="order-section-copy">
+                <div class="section-label">Almost yours</div>
+                <h2>Where shall we send it?</h2>
+                <p>
+                    Share your details and we'll take care of the rest.
+                    Payment will be arranged manually after confirmation.
+                </p>
+            </div>
+
+            <form id="orderForm" class="order-form">
+
+                <div class="form-field">
+                    <label for="customerName">Full name *</label>
+                    <input
+                        id="customerName"
+                        name="name"
+                        type="text"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+                        <label for="customerEmail">Email *</label>
+                        <input
+                            id="customerEmail"
+                            name="email"
+                            type="email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="customerPhone">Phone *</label>
+                        <input
+                            id="customerPhone"
+                            name="phone"
+                            type="tel"
+                            inputmode="tel"
+                            autocomplete="tel"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-field">
+                    <label for="addressLine1">
+                        Address line 1 *
+                    </label>
+
+                    <input
+                        id="addressLine1"
+                        name="address_line_1"
+                        type="text"
+                        placeholder="House / Flat / Building / Street"
+                        autocomplete="address-line1"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label for="addressLine2">
+                        Address line 2
+                    </label>
+
+                    <input
+                        id="addressLine2"
+                        name="address_line_2"
+                        type="text"
+                        placeholder="Area / Locality / Landmark"
+                        autocomplete="address-line2"
+                    >
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+                        <label for="customerCity">
+                            City *
+                        </label>
+
+                        <input
+                            id="customerCity"
+                            name="city"
+                            type="text"
+                            autocomplete="address-level2"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-field">
+                        <label for="customerState">
+                            State *
+                        </label>
+
+                        <input
+                            id="customerState"
+                            name="state"
+                            type="text"
+                            autocomplete="address-level1"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="form-field">
+                    <label for="customerPincode">
+                        PIN code *
+                    </label>
+
+                    <input
+                        id="customerPincode"
+                        name="pincode"
+                        type="text"
+                        inputmode="numeric"
+                        autocomplete="postal-code"
+                        pattern="[0-9]{6}"
+                        maxlength="6"
+                        placeholder="6-digit PIN code"
+                        required
+                    >
+                </div>
+
+                <div class="order-form-actions">
+
+                    <button
+                        type="button"
+                        id="backToCart"
+                        class="cart-button cart-button-light"
+                    >
+                        Back to cart
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="submitOrder"
+                        class="cart-button cart-button-dark"
+                    >
+                        Submit order request
+                    </button>
+
+                </div>
+
+                <p
+                    id="orderMessage"
+                    class="order-message"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- SUCCESS -->
+
+        <section id="orderSuccess" class="order-success" hidden>
+
+            <div class="section-label">Order request received</div>
+
+            <h2>Thank you.</h2>
+
+            <p>
+                We've received your order request and will contact you
+                shortly to confirm the details.
+            </p>
+
+            <div class="success-order-id">
+                <span>Order ID</span>
+                <strong id="successOrderId"></strong>
+            </div>
+
+            <p class="success-note">
+                No payment has been collected yet.
+                We'll arrange payment and delivery with you manually.
+            </p>
+
+            <a
+                href="collection.html"
+                class="cart-button cart-button-dark"
+            >
+                Continue shopping
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+      <div class="footer-brand">
+        Selvora
+        <small>Fragrance as memory, made tangible.</small>
+      </div>
+
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <a href="#home">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="#story">Our Story</a>
+        <!-- <a href="#testimonials">Testimonials</a> -->
+        <a href="cart.html">Cart</a>
+        <button class="footer-feedback-link" type="button" data-open-feedback>Leave feedback</button>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <a href="mailto:hello@selvora.in">Email</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://hausofkala.com/" target="_blank" rel="noopener">Haus of Kala</a>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Selvora / Haus of Kala</span>
+        <span>Made with intention.</span>
+      </div>
+    </footer>
+
+</div>
+
+
+<script src="cart.js"></script>
+
+</body>
+</html>
