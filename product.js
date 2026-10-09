@@ -79,8 +79,27 @@ const cartFeedback =
 const params =
     new URLSearchParams(window.location.search);
 
-const productSlug =
-    params.get("product");
+// Preferred clean route: /fragrances/product-slug
+// Legacy fallback: /product.html?product=product-slug
+function getProductSlugFromLocation() {
+    const pathParts = window.location.pathname
+        .split("/")
+        .filter(Boolean);
+
+    const fragranceIndex = pathParts.indexOf("fragrances");
+
+    if (fragranceIndex !== -1 && pathParts[fragranceIndex + 1]) {
+        try {
+            return decodeURIComponent(pathParts[fragranceIndex + 1]);
+        } catch (error) {
+            return pathParts[fragranceIndex + 1];
+        }
+    }
+
+    return params.get("product");
+}
+
+const productSlug = getProductSlugFromLocation();
 
 
 let currentProduct = null;

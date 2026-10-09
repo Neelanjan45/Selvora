@@ -165,7 +165,7 @@ function createProductCard(product, index) {
 
                     <a
                         class="product-link"
-                        href="product.html?product=${encodeURIComponent(
+                        href="/fragrances/${encodeURIComponent(
                             product.slug
                         )}"
                     >
