@@ -1,0 +1,118 @@
+/* Standalone feedback page. Shared form controls remain in styles.css. */
+.feedback-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 12% 5%, rgba(104, 115, 91, 0.10), transparent 36%),
+    var(--ivory);
+}
+
+.feedback-page-layout {
+  width: min(100% - 40px, 860px);
+  margin: 0 auto;
+  padding: 28px 0 22px;
+}
+
+.feedback-page-header,
+.feedback-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px;
+}
+
+.feedback-page-brand {
+  color: var(--forest);
+  font-family: var(--serif);
+  font-size: 25px;
+  letter-spacing: 0.08em;
+}
+
+.feedback-page-back,
+.feedback-page-footer a {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  transition: color 180ms ease;
+}
+
+.feedback-page-back:hover,
+.feedback-page-footer a:hover {
+  color: var(--forest);
+}
+
+.feedback-page-card {
+  width: min(100% - 40px, 860px);
+  margin: clamp(28px, 6vh, 64px) auto;
+  padding: clamp(26px, 5vw, 58px);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(32, 39, 31, 0.10);
+  box-shadow: 0 24px 70px rgba(32, 39, 31, 0.07);
+}
+
+.feedback-page-card .feedback-title {
+  max-width: 600px;
+  font-size: clamp(42px, 7vw, 68px);
+}
+
+.feedback-page-card .feedback-intro {
+  max-width: 560px;
+}
+
+.feedback-page-card .feedback-form {
+  margin-top: 30px;
+}
+
+.feedback-page-footer {
+  padding: 4px 0 12px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.feedback-page-footer span {
+  line-height: 1.6;
+}
+
+.feedback-page .feedback-status {
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .feedback-page-layout {
+    width: min(100% - 28px, 860px);
+    padding-top: 18px;
+  }
+
+  .feedback-page-header {
+    align-items: flex-start;
+  }
+
+  .feedback-page-brand {
+    font-size: 22px;
+  }
+
+  .feedback-page-back {
+    padding-top: 8px;
+    text-align: right;
+  }
+
+  .feedback-page-card {
+    margin: 28px auto;
+    padding: 25px 20px;
+  }
+
+  .feedback-page-card .feedback-title {
+    font-size: clamp(40px, 12vw, 54px);
+  }
+
+  .feedback-page-card .feedback-form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feedback-page-footer {
+    align-items: flex-start;
+    font-size: 9px;
+  }
+}

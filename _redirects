@@ -1,0 +1,12 @@
+# Clean public URLs -> existing HTML files (internal rewrites)
+/home                 /index.html       200
+/fragrances           /collection.html  200
+/fragrances/*         /product.html?product=:splat  200
+/cart                 /cart.html        200
+/feedback             /feedback.html    200
+
+# Legacy page URLs redirect to the preferred public URLs
+/index.html           /home             301
+/collection.html      /fragrances       301
+/cart.html            /cart             301
+/feedback.html        /feedback         301

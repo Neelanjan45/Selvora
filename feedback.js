@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   feedbackForm?.addEventListener("submit", submitFeedback);
+
+  // Standalone feedback page: load products immediately because there is no modal trigger.
+  if (feedbackForm && !feedbackModal) {
+    loadFeedbackProducts();
+  }
 });
 
 async function openFeedback() {
