@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,79 +8,81 @@
   <title>Share Your Experience — Selvora</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/feedback.css"/>
+  <link rel="stylesheet" href="/feedback.css" />
 </head>
+
 <body class="feedback-page">
+
+  <div id="site-header"></div>
   <div id="site-nav"></div>
+
   <main>
-    <header class="feedback-page-header">
-      <a class="feedback-page-brand" href="/home" aria-label="Selvora home">Selvora</a>
-      <a class="feedback-page-back" href="/fragrances">Explore fragrances <span aria-hidden="true">↗</span></a>
-    </header>
 
     <section class="feedback-page-card" aria-labelledby="feedbackTitle">
-          <div class="section-label">Share your experience</div>
+      <div class="section-label">Share your experience</div>
 
-          <h2 class="feedback-title" id="feedbackTitle">
-            Tell us what<br /><em>remains.</em>
-          </h2>
+      <h2 class="feedback-title" id="feedbackTitle">
+        Tell us what<br /><em>remains.</em>
+      </h2>
 
-          <p class="feedback-intro">
-            Choose the fragrance you experienced and leave us a small impression.
-            Your feedback may become part of Selvora’s story.
-          </p>
+      <p class="feedback-intro">
+        Choose the fragrance you experienced and leave us a small impression.
+        Your feedback may become part of Selvora’s story.
+      </p>
 
-          <form id="feedbackForm" class="feedback-form">
-            <div class="feedback-field">
-              <label for="feedbackProduct">Fragrance *</label>
-              <select id="feedbackProduct" name="product" required>
-                <option value="">Loading fragrances...</option>
-              </select>
-            </div>
+      <form id="feedbackForm" class="feedback-form">
+        <div class="feedback-field">
+          <label for="feedbackProduct">Fragrance *</label>
+          <select id="feedbackProduct" name="product" required>
+            <option value="">Loading fragrances...</option>
+          </select>
+        </div>
 
-            <div class="feedback-field">
-              <span class="feedback-label">Your rating *</span>
-              <div class="rating-picker" role="radiogroup" aria-label="Rating">
-                <label><input type="radio" name="rating" value="1" required /><span>1</span></label>
-                <label><input type="radio" name="rating" value="2" /><span>2</span></label>
-                <label><input type="radio" name="rating" value="3" /><span>3</span></label>
-                <label><input type="radio" name="rating" value="4" /><span>4</span></label>
-                <label><input type="radio" name="rating" value="5" /><span>5</span></label>
-              </div>
-            </div>
+        <div class="feedback-field">
+          <span class="feedback-label">Your rating *</span>
+          <div class="rating-picker" role="radiogroup" aria-label="Rating">
+            <label><input type="radio" name="rating" value="1" required /><span>1</span></label>
+            <label><input type="radio" name="rating" value="2" /><span>2</span></label>
+            <label><input type="radio" name="rating" value="3" /><span>3</span></label>
+            <label><input type="radio" name="rating" value="4" /><span>4</span></label>
+            <label><input type="radio" name="rating" value="5" /><span>5</span></label>
+          </div>
+        </div>
 
-            <div class="feedback-field">
-              <label for="feedbackMessage">Your experience *</label>
-              <textarea id="feedbackMessage" name="feedback" rows="5" maxlength="1000"
-                placeholder="What did the fragrance make you feel?" required></textarea>
-            </div>
+        <div class="feedback-field">
+          <label for="feedbackMessage">Your experience *</label>
+          <textarea id="feedbackMessage" name="feedback" rows="5" maxlength="1000"
+            placeholder="What did the fragrance make you feel?" required></textarea>
+        </div>
 
-            <div class="feedback-form-grid">
-              <div class="feedback-field">
-                <label for="feedbackName">Name</label>
-                <input id="feedbackName" name="name" type="text" maxlength="80" placeholder="Your name" />
-              </div>
+        <div class="feedback-form-grid">
+          <div class="feedback-field">
+            <label for="feedbackName">Name</label>
+            <input id="feedbackName" name="name" type="text" maxlength="80" placeholder="Your name" />
+          </div>
 
-              <div class="feedback-field">
-                <label for="feedbackEmail">Email</label>
-                <input id="feedbackEmail" name="email" type="email" autocomplete="email" placeholder="Optional" />
-              </div>
-            </div>
+          <div class="feedback-field">
+            <label for="feedbackEmail">Email</label>
+            <input id="feedbackEmail" name="email" type="email" autocomplete="email" placeholder="Optional" />
+          </div>
+        </div>
 
-            <label class="feedback-consent">
-              <input id="feedbackConsent" name="consent" type="checkbox" />
-              <span>I'd like my name to be shown with my review.</span>
-            </label>
+        <label class="feedback-consent">
+          <input id="feedbackConsent" name="consent" type="checkbox" />
+          <span>I'd like my name to be shown with my review.</span>
+        </label>
 
-            <button class="feedback-submit" type="submit">
-              <span>Send feedback</span>
-              <span aria-hidden="true">→</span>
-            </button>
+        <button class="feedback-submit" type="submit">
+          <span>Send feedback</span>
+          <span aria-hidden="true">→</span>
+        </button>
 
-            <p class="feedback-status" id="feedbackStatus" role="status" hidden></p>
-          </form>
+        <p class="feedback-status" id="feedbackStatus" role="status" hidden></p>
+      </form>
     </section>
 
     <div id="site-footer"></div>
@@ -87,4 +90,5 @@
   <script src="/components.js"></script>
   <script src="/feedback.js"></script>
 </body>
+
 </html>
