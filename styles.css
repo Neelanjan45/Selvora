@@ -790,7 +790,7 @@ img {
     position: relative;
     aspect-ratio: 1.15 / 1;
     overflow: hidden;
-    background: #d8d1c4;
+    background: var(--paper)
 }
 
 .product-visual img {
@@ -800,7 +800,7 @@ img {
     transition: transform 900ms var(--ease);
 }
 
-.product-card:nth-child(2) .product-visual {
+/* .product-card:nth-child(2) .product-visual {
     background: #c5c8bc;
 }
 
@@ -810,7 +810,7 @@ img {
 
 .product-card:nth-child(4) .product-visual {
     background: #b9b9aa;
-}
+} */
 
 .product-card:hover .product-visual img {
     transform: scale(1.045);

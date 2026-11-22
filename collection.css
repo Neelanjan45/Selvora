@@ -76,22 +76,22 @@
   gap: 75px 30px;
 }
 
-.collection-card {
+.product-card {
   min-width: 0;
 }
 
-.collection-card-link {
+.product-card-link {
   display: block;
 }
 
-.collection-card-visual {
+.product-visual {
   position: relative;
-  aspect-ratio: 0.88 / 1;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--paper);
 }
 
-.collection-card-visual::after {
+.product-visual::after {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, transparent 65%, rgba(27, 33, 27, 0.12));
@@ -99,19 +99,19 @@
   pointer-events: none;
 }
 
-.collection-card-visual img {
+.product-visual img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 900ms var(--ease);
 }
 
-.collection-card:hover .collection-card-visual img,
-.collection-card-link:focus-visible .collection-card-visual img {
-  transform: scale(1.045);
+.product-card:hover .product-visual img,
+.product-card:focus-within .product-visual img {
+  transform: scale(1.01);
 }
 
-.collection-card-number {
+.product-index {
   position: absolute;
   top: 22px;
   left: 22px;
@@ -121,7 +121,7 @@
   letter-spacing: 0.15em;
 }
 
-.collection-card-body {
+.product-info {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 20px;
@@ -129,14 +129,14 @@
   border-top: 1px solid var(--line);
 }
 
-.collection-card-title {
+.product-name {
   font-family: var(--serif);
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 400;
   line-height: 1.05;
 }
 
-.collection-card-mood {
+.product-mood {
   margin-top: 8px;
   color: var(--muted);
   font-size: 10px;
@@ -144,18 +144,18 @@
   text-transform: uppercase;
 }
 
-.collection-card-size {
+.product-size {
   margin-top: 14px;
   color: var(--muted);
   font-size: 11px;
 }
 
-.collection-card-price {
+.product-price {
   font-size: 12px;
   white-space: nowrap;
 }
 
-.collection-card-cta {
+.product-link {
   display: inline-block;
   margin-top: 18px;
   font-size: 9px;
@@ -163,7 +163,7 @@
   text-transform: uppercase;
 }
 
-.collection-card-cta::after {
+.product-link::after {
   display: block;
   width: 100%;
   height: 1px;
@@ -174,7 +174,7 @@
   transition: transform 300ms var(--ease);
 }
 
-.collection-card:hover .collection-card-cta::after {
+.product-card:hover .product-link::after {
   transform: scaleX(0.35);
 }
 
@@ -259,14 +259,14 @@
     gap: 60px;
   }
 
-  .collection-card-title {
+  .product-name {
     font-size: 30px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .collection-card-visual img,
-  .collection-card-cta::after,
+  .product-visual img,
+  .product-link::after,
   .state-line {
     transition: none;
     animation: none;

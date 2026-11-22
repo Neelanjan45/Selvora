@@ -60,10 +60,10 @@ const quantityInput =
     document.querySelector("#quantity");
 
 const quantityMinus =
-    document.querySelector("#quantityMinus");
+    document.querySelector("#quantityDecrease");
 
 const quantityPlus =
-    document.querySelector("#quantityPlus");
+    document.querySelector("#quantityIncrease");
 
 const addToCartButton =
     document.querySelector("#addToCart");
@@ -400,9 +400,9 @@ quantityMinus?.addEventListener(
     () => {
 
         const current =
-            Number(quantityInput.value || 1);
+            Number(quantityInput.textContent || 1);
 
-        quantityInput.value =
+        quantityInput.textContent =
             Math.max(1, current - 1);
     }
 );
@@ -413,9 +413,9 @@ quantityPlus?.addEventListener(
     () => {
 
         const current =
-            Number(quantityInput.value || 1);
+            Number(quantityInput.textContent || 1);
 
-        quantityInput.value =
+        quantityInput.textContent =
             Math.min(10, current + 1);
     }
 );
@@ -439,7 +439,7 @@ addToCartButton?.addEventListener(
                 Math.max(
                     1,
                     Number(
-                        quantityInput?.value || 1
+                        quantityInput?.textContent || 1
                     )
                 )
             );
