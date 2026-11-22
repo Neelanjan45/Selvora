@@ -1,6 +1,7 @@
 /* Selvora shared navigation and footer loader */
 (async function loadSelvoraComponents() {
   const components = [
+    ["#site-header", "/components/header.html"],
     ["#site-nav", "/components/navbar.html"],
     ["#site-footer", "/components/footer.html"]
   ];

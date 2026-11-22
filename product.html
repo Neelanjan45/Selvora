@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Discover the fragrance — Selvora."
-    >
+    <meta name="description" content="Discover the fragrance — Selvora.">
 
     <title>Fragrance — Selvora</title>
 
@@ -17,8 +14,7 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/product.css">
@@ -27,270 +23,204 @@
 
 <body class="product-page">
 
-<div class="site-shell">
+    <div class="site-shell">
 
+        <div id="site-header"></div>
+        <div id="site-nav"></div>
 
-    <!-- =====================================================
-         FLOATING NAVIGATION
-         ===================================================== -->
-
-    <div id="site-nav"></div>
-
-
-
-    <!-- =====================================================
+        <!-- =====================================================
          PRODUCT
          ===================================================== -->
 
-    <main class="product-detail">
+        <main class="product-detail">
 
 
-        <!-- Loading -->
+            <!-- Loading -->
 
-        <div
-            class="product-loading"
-            id="productLoading"
-        >
-            <span>Loading fragrance...</span>
-        </div>
-
-
-        <!-- Error -->
-
-        <div
-            class="product-error"
-            id="productError"
-            hidden
-        >
-            <h1>Fragrance not found.</h1>
-
-            <p>
-                The fragrance you are looking for could not be found.
-            </p>
-
-            <a
-                href="/fragrances"
-                class="button-link"
-            >
-                Back to collection
-            </a>
-        </div>
-
-
-        <!-- Product -->
-
-        <section
-            class="product-detail-content"
-            id="productContent"
-            hidden
-        >
-
-            <!-- IMAGE -->
-
-            <div class="product-detail-image">
-
-                <img
-                    id="productImage"
-                    src=""
-                    alt=""
-                >
-
-                <span
-                    class="product-detail-index"
-                    id="productIndex"
-                ></span>
-
+            <div class="product-loading" id="productLoading">
+                <span>Loading fragrance...</span>
             </div>
 
 
-            <!-- INFORMATION -->
+            <!-- Error -->
 
-            <div class="product-detail-info">
+            <div class="product-error" id="productError" hidden>
+                <h1>Fragrance not found.</h1>
 
-                <a
-                    href="/fragrances"
-                    class="product-back"
-                >
-                    ← Back to collection
+                <p>
+                    The fragrance you are looking for could not be found.
+                </p>
+
+                <a href="/fragrances" class="button-link">
+                    Back to collection
                 </a>
-
-
-                <div class="product-detail-heading">
-
-                    <div
-                        class="section-label"
-                        id="productMood"
-                    ></div>
-
-                    <h1 id="productName"></h1>
-
-                    <p
-                        class="product-tagline"
-                        id="productTagline"
-                    ></p>
-
-                </div>
-
-
-                <!-- DESCRIPTION -->
-
-                <div class="product-description">
-
-                    <p id="productDescription"></p>
-
-                </div>
-
-
-                <!-- NOTES -->
-
-                <div class="fragrance-notes">
-
-                    <div class="notes-heading">
-                        Fragrance notes
-                    </div>
-
-
-                    <div class="notes-grid">
-
-                        <div class="note-group">
-
-                            <span class="note-label">
-                                Top
-                            </span>
-
-                            <span
-                                class="note-value"
-                                id="topNotes"
-                            ></span>
-
-                        </div>
-
-
-                        <div class="note-group">
-
-                            <span class="note-label">
-                                Heart
-                            </span>
-
-                            <span
-                                class="note-value"
-                                id="heartNotes"
-                            ></span>
-
-                        </div>
-
-
-                        <div class="note-group">
-
-                            <span class="note-label">
-                                Base
-                            </span>
-
-                            <span
-                                class="note-value"
-                                id="baseNotes"
-                            ></span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PURCHASE -->
-
-                <div class="product-purchase">
-
-                    <div class="purchase-meta">
-
-                        <div>
-
-                            <span class="purchase-label">
-                                Size
-                            </span>
-
-                            <span
-                                class="purchase-value"
-                                id="productSize"
-                            ></span>
-
-                        </div>
-
-
-                        <div>
-
-                            <span class="purchase-label">
-                                Price
-                            </span>
-
-                            <span
-                                class="purchase-price"
-                                id="productPrice"
-                            ></span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="purchase-actions">
-
-                        <div class="quantity-control">
-
-                            <button
-                                type="button"
-                                id="quantityDecrease"
-                                aria-label="Decrease quantity"
-                            >
-                                −
-                            </button>
-
-                            <span id="quantity">
-                                1
-                            </span>
-
-                            <button
-                                type="button"
-                                id="quantityIncrease"
-                                aria-label="Increase quantity"
-                            >
-                                +
-                            </button>
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="add-to-cart"
-                            id="addToCart"
-                        >
-                            Add to cart
-                        </button>
-
-                    </div>
-
-                    <p
-                        class="cart-feedback"
-                        id="cartFeedback"
-                        aria-live="polite"
-                    ></p>
-
-                </div>
-
             </div>
 
-        </section>
 
-    </main>
+            <!-- Product -->
 
-    <div id="site-footer"></div>
-</div>
+            <section class="product-detail-content" id="productContent" hidden>
+
+                <!-- IMAGE -->
+
+                <div class="product-detail-image">
+
+                    <img id="productImage" src="" alt="">
+
+                    <span class="product-detail-index" id="productIndex"></span>
+
+                </div>
 
 
-<script src="/components.js"></script>
-<script src="/product.js"></script>
+                <!-- INFORMATION -->
+
+                <div class="product-detail-info">
+
+                    <a href="/fragrances" class="product-back">
+                        ← Back to collection
+                    </a>
+
+
+                    <div class="product-detail-heading">
+
+                        <div class="section-label" id="productMood"></div>
+
+                        <h1 id="productName"></h1>
+
+                        <p class="product-tagline" id="productTagline"></p>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="product-description">
+
+                        <p id="productDescription"></p>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div class="fragrance-notes">
+
+                        <div class="notes-heading">
+                            Fragrance notes
+                        </div>
+
+
+                        <div class="notes-grid">
+
+                            <div class="note-group">
+
+                                <span class="note-label">
+                                    Top
+                                </span>
+
+                                <span class="note-value" id="topNotes"></span>
+
+                            </div>
+
+
+                            <div class="note-group">
+
+                                <span class="note-label">
+                                    Heart
+                                </span>
+
+                                <span class="note-value" id="heartNotes"></span>
+
+                            </div>
+
+
+                            <div class="note-group">
+
+                                <span class="note-label">
+                                    Base
+                                </span>
+
+                                <span class="note-value" id="baseNotes"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PURCHASE -->
+
+                    <div class="product-purchase">
+
+                        <div class="purchase-meta">
+
+                            <div>
+
+                                <span class="purchase-label">
+                                    Size
+                                </span>
+
+                                <span class="purchase-value" id="productSize"></span>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="purchase-label">
+                                    Price
+                                </span>
+
+                                <span class="purchase-price" id="productPrice"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="purchase-actions">
+
+                            <div class="quantity-control">
+
+                                <button type="button" id="quantityDecrease" aria-label="Decrease quantity">
+                                    −
+                                </button>
+
+                                <span id="quantity">
+                                    1
+                                </span>
+
+                                <button type="button" id="quantityIncrease" aria-label="Increase quantity">
+                                    +
+                                </button>
+
+                            </div>
+
+
+                            <button type="button" class="add-to-cart" id="addToCart">
+                                Add to cart
+                            </button>
+
+                        </div>
+
+                        <p class="cart-feedback" id="cartFeedback" aria-live="polite"></p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <div id="site-footer"></div>
+    </div>
+
+
+    <script src="/components.js"></script>
+    <script src="/product.js"></script>
 
 </body>
+
 </html>
