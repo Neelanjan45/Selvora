@@ -26,6 +26,11 @@ const productContent =
 const productImage =
     document.querySelector("#productImage");
 
+const productGalleryThumbnails =
+    document.querySelector("#productGalleryThumbnails");
+
+let productMediaItems = [];
+
 const productIndex =
     document.querySelector("#productIndex");
 
@@ -189,28 +194,6 @@ function renderProduct(product) {
     document.title =
         `${product.name} | Selvora`;
 
-    const firstMedia =
-        product.media?.[0]?.url || "";
-
-    if (productImage) {
-
-        if (firstMedia) {
-
-            productImage.src =
-                firstMedia;
-
-            productImage.alt =
-                `${product.name} fragrance`;
-
-            productImage.hidden = false;
-
-        } else {
-
-            productImage.hidden = true;
-        }
-    }
-
-
     if (productIndex) {
 
         productIndex.textContent =
@@ -320,26 +303,111 @@ function renderNotes(element, notes) {
 
 function renderGallery(media) {
 
-    if (!Array.isArray(media)) {
+    if (!productImage) return;
+
+    // Sort by the Order column exposed by the product API.
+    // If an order value is absent, retain the API's original sequence.
+    productMediaItems = (Array.isArray(media) ? media : [])
+        .map((item, originalIndex) => ({
+            ...item,
+            _originalIndex: originalIndex,
+            _displayOrder: getMediaOrder(item)
+        }))
+        .filter(item => item.url)
+        .sort((a, b) => {
+            const aHasOrder = Number.isFinite(a._displayOrder);
+            const bHasOrder = Number.isFinite(b._displayOrder);
+
+            if (aHasOrder && bHasOrder && a._displayOrder !== b._displayOrder) {
+                return a._displayOrder - b._displayOrder;
+            }
+
+            if (aHasOrder !== bHasOrder) {
+                return aHasOrder ? -1 : 1;
+            }
+
+            return a._originalIndex - b._originalIndex;
+        });
+
+    if (!productMediaItems.length) {
+        productImage.removeAttribute("src");
+        productImage.alt = "";
+        productImage.hidden = true;
+
+        if (productGalleryThumbnails) {
+            productGalleryThumbnails.replaceChildren();
+            productGalleryThumbnails.hidden = true;
+        }
         return;
     }
 
-    /*
-     * The existing product page currently has
-     * one main image.
-     *
-     * For now we use the first media as the main image.
-     *
-     * We'll enhance this into a proper gallery
-     * once the basic data flow is confirmed.
-     */
+    productImage.hidden = false;
+    selectGalleryImage(0);
 
-    if (!media.length || !productImage) {
+    if (!productGalleryThumbnails) return;
+
+    productGalleryThumbnails.replaceChildren();
+
+    if (productMediaItems.length < 2) {
+        productGalleryThumbnails.hidden = true;
         return;
     }
 
-    productImage.src =
-        media[0].url;
+    productMediaItems.forEach((item, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "product-gallery-thumbnail";
+        button.setAttribute("aria-label", `View product image ${index + 1}`);
+        button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+
+        const thumbnail = document.createElement("img");
+        thumbnail.src = item.url;
+        thumbnail.alt = "";
+        thumbnail.loading = "lazy";
+
+        button.appendChild(thumbnail);
+        button.addEventListener("click", () => selectGalleryImage(index));
+        productGalleryThumbnails.appendChild(button);
+    });
+
+    productGalleryThumbnails.hidden = false;
+}
+
+
+function getMediaOrder(item) {
+    const rawOrder =
+        item?.order ??
+        item?.Order ??
+        item?.display_order ??
+        item?.sort_order ??
+        item?.media_order;
+
+    if (rawOrder === null || rawOrder === undefined || String(rawOrder).trim() === "") {
+        return Number.NaN;
+    }
+
+    const parsedOrder = Number(rawOrder);
+    return Number.isFinite(parsedOrder) ? parsedOrder : Number.NaN;
+}
+
+
+function selectGalleryImage(index) {
+    const item = productMediaItems[index];
+    if (!item || !productImage) return;
+
+    productImage.src = item.url;
+    productImage.alt = `${currentProduct?.name || "Selvora"} fragrance image ${index + 1}`;
+
+    if (!productGalleryThumbnails) return;
+
+    productGalleryThumbnails
+        .querySelectorAll(".product-gallery-thumbnail")
+        .forEach((button, buttonIndex) => {
+            button.setAttribute(
+                "aria-pressed",
+                buttonIndex === index ? "true" : "false"
+            );
+        });
 }
 
 
@@ -493,7 +561,7 @@ addToCartButton?.addEventListener(
                     currentProduct.currency,
 
                 image:
-                    currentProduct.media?.[0]?.url || "",
+                    productMediaItems[0]?.url || currentProduct.media?.[0]?.url || "",
 
                 quantity:
                     quantity
