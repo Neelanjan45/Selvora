@@ -4,6 +4,7 @@
 
 const HOME_API_URL = "https://script.google.com/macros/s/AKfycbw5x2_GxhYIV1SEX4fON8YUORn8LZ-Pz-eZ3Sv7wmU93iXxDDwwy22MDoRP2WiNPowvZQ/exec";
 
+const bannerSection = document.querySelector(".hero");
 const bannerTrack = document.querySelector("#bannerTrack");
 const bannerLoading = document.querySelector("#bannerLoading");
 const bannerDots = document.querySelector("#bannerDots");
@@ -48,7 +49,7 @@ async function loadHomeBanners() {
       throw new Error(data.error || "Unable to load banners.");
     }
 
-    homeBanners = data.banners.filter(isUsableBanner);
+    homeBanners = data.banners.filter(isActiveBanner).filter(isUsableBanner);
 
     renderBanners();
 
@@ -57,6 +58,18 @@ async function loadHomeBanners() {
     console.error("Selvora banner error:", error);
     showBannerError();
   }
+}
+
+function isActiveBanner(banner) {
+  if (!banner) return false;
+
+  // Respect the sheet/API status when it is supplied.
+  // Older banner records without a status remain compatible.
+  const status = String(banner.status ?? "").trim().toLowerCase();
+
+  if (!status) return true;
+
+  return ["active", "true", "1", "yes"].includes(status);
 }
 
 function isUsableBanner(banner) {
@@ -75,6 +88,8 @@ function renderBanners() {
     showBannerEmpty();
     return;
   }
+
+  if (bannerSection) bannerSection.hidden = false;
 
   bannerTrack.innerHTML = homeBanners
     .map((banner, index) => createBannerMarkup(banner, index))
@@ -282,6 +297,7 @@ function restartBannerAutoplay() {
 
 function showBannerEmpty() {
 
+  if (bannerSection) bannerSection.hidden = true;
   if (bannerLoading) bannerLoading.hidden = true;
   if (bannerTrack) bannerTrack.hidden = true;
   if (bannerPrev) bannerPrev.hidden = true;

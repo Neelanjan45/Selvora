@@ -1818,3 +1818,7 @@ img {
         transition: none;
     }
 }
+/* Hide the complete homepage hero when there are no active campaigns. */
+.hero[hidden] {
+    display: none !important;
+}
