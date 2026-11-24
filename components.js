@@ -16,6 +16,7 @@
     }));
 
     setActiveNavigation();
+    updateSharedCartCount();
     document.dispatchEvent(new CustomEvent("selvora:components-loaded"));
   } catch (error) {
     console.error("Selvora shared components could not be loaded:", error);
@@ -39,5 +40,27 @@ function setActiveNavigation() {
     ) {
       item.classList.add("is-active");
     }
+  });
+}
+
+
+/* Keep the cart badge accurate after the shared navigation is injected. */
+function updateSharedCartCount() {
+  let cart = [];
+
+  try {
+    const stored = JSON.parse(localStorage.getItem("selvoraCart") || "[]");
+    cart = Array.isArray(stored) ? stored : [];
+  } catch (error) {
+    console.warn("Selvora cart count could not be read:", error);
+  }
+
+  const count = cart.reduce(
+    (total, item) => total + Math.max(0, Number(item?.quantity || 0)),
+    0,
+  );
+
+  document.querySelectorAll(".cart-count").forEach((element) => {
+    element.textContent = count;
   });
 }

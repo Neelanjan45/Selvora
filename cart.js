@@ -62,6 +62,7 @@ const successOrderId = document.querySelector("#successOrderId");
 let cart = readCart();
 
 let appliedCoupon = null;
+let cartRefreshFailed = false;
 
 let totals = {
   subtotal: 0,
@@ -74,10 +75,19 @@ let totals = {
    INIT
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   updateCartCount();
-
+  await refreshCartProducts();
+  updateCartCount();
   renderCart();
+
+  if (cartRefreshFailed) {
+    placeOrderButton.disabled = true;
+    setCouponMessage(
+      "We couldn't verify the latest product details. Please reload the cart before placing your order.",
+      "error",
+    );
+  }
 });
 
 /* =========================================================
@@ -115,6 +125,93 @@ function saveCart() {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 
   updateCartCount();
+}
+
+async function refreshCartProducts() {
+  if (!cart.length) return;
+
+  cart = await Promise.all(
+    cart.map(async (item) => {
+      try {
+        const response = await fetch(
+          `${CART_API_URL}?action=product&slug=${encodeURIComponent(item.slug)}`,
+          {
+            method: "GET",
+            headers: { Accept: "application/json" },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`Product refresh failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.success || !data.product) {
+          throw new Error(data.error || `Product not found: ${item.slug}`);
+        }
+
+        const product = data.product;
+        return {
+          ...item,
+          id: product.id || item.id,
+          slug: product.slug || item.slug,
+          name: product.name || item.name,
+          size: product.size || item.size,
+          price: Number(product.price ?? item.price),
+          currency: product.currency || item.currency || "INR",
+          image: getFirstProductImage(product.media) || item.image,
+        };
+      } catch (error) {
+        // Retain the saved item for display, but do not allow checkout with
+        // potentially stale catalogue pricing.
+        cartRefreshFailed = true;
+        console.warn(`Selvora could not refresh "${item.slug}":`, error);
+        return item;
+      }
+    }),
+  );
+
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function getFirstProductImage(media) {
+  if (!Array.isArray(media)) return "";
+
+  const orderedMedia = media
+    .map((item, originalIndex) => ({
+      ...item,
+      _originalIndex: originalIndex,
+      _displayOrder: getCartMediaOrder(item),
+    }))
+    .filter((item) => item.url)
+    .sort((a, b) => {
+      const aHasOrder = Number.isFinite(a._displayOrder);
+      const bHasOrder = Number.isFinite(b._displayOrder);
+
+      if (aHasOrder && bHasOrder && a._displayOrder !== b._displayOrder) {
+        return a._displayOrder - b._displayOrder;
+      }
+      if (aHasOrder !== bHasOrder) return aHasOrder ? -1 : 1;
+      return a._originalIndex - b._originalIndex;
+    });
+
+  return orderedMedia[0]?.url || "";
+}
+
+function getCartMediaOrder(item) {
+  const rawOrder =
+    item?.order ??
+    item?.Order ??
+    item?.display_order ??
+    item?.sort_order ??
+    item?.media_order;
+
+  if (rawOrder === null || rawOrder === undefined || String(rawOrder).trim() === "") {
+    return Number.NaN;
+  }
+
+  const parsedOrder = Number(rawOrder);
+  return Number.isFinite(parsedOrder) ? parsedOrder : Number.NaN;
 }
 
 function updateCartCount() {
@@ -434,7 +531,8 @@ function calculateTotals() {
       discount = Number(appliedCoupon.discount_value);
     }
 
-    discount = Math.min(subtotal, discount);
+    discount = Math.ceil(discount);
+    discount = Math.min(subtotal, roundMoney(discount));
   }
 
   /*
@@ -478,7 +576,7 @@ function calculateTotals() {
 ========================================================= */
 
 placeOrderButton?.addEventListener("click", () => {
-  if (!cart.length) {
+  if (cartRefreshFailed || !cart.length) {
     return;
   }
 
@@ -514,7 +612,7 @@ document.querySelector("#customerPincode")?.addEventListener("input", event => {
 orderForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (!cart.length) {
+  if (!cart.length || cartRefreshFailed) {
     return;
   }
 

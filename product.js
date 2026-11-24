@@ -26,6 +26,11 @@ const productContent =
 const productImage =
     document.querySelector("#productImage");
 
+const productGalleryThumbnails =
+    document.querySelector("#productGalleryThumbnails");
+
+let productMediaItems = [];
+
 const productIndex =
     document.querySelector("#productIndex");
 
@@ -40,15 +45,6 @@ const productTagline =
 
 const productDescription =
     document.querySelector("#productDescription");
-
-const topNotes =
-    document.querySelector("#topNotes");
-
-const heartNotes =
-    document.querySelector("#heartNotes");
-
-const baseNotes =
-    document.querySelector("#baseNotes");
 
 const productSize =
     document.querySelector("#productSize");
@@ -189,28 +185,6 @@ function renderProduct(product) {
     document.title =
         `${product.name} | Selvora`;
 
-    const firstMedia =
-        product.media?.[0]?.url || "";
-
-    if (productImage) {
-
-        if (firstMedia) {
-
-            productImage.src =
-                firstMedia;
-
-            productImage.alt =
-                `${product.name} fragrance`;
-
-            productImage.hidden = false;
-
-        } else {
-
-            productImage.hidden = true;
-        }
-    }
-
-
     if (productIndex) {
 
         productIndex.textContent =
@@ -241,28 +215,8 @@ function renderProduct(product) {
 
 
     if (productDescription) {
-
-        productDescription.textContent =
-            product.description || "";
+        productDescription.innerHTML = renderDescriptionHTML(product.description || "");
     }
-
-
-    renderNotes(
-        topNotes,
-        product.notes?.top
-    );
-
-    renderNotes(
-        heartNotes,
-        product.notes?.heart
-    );
-
-    renderNotes(
-        baseNotes,
-        product.notes?.base
-    );
-
-
     if (productSize) {
 
         productSize.textContent =
@@ -291,55 +245,117 @@ function renderProduct(product) {
 
 
 /* =========================================================
-   NOTES
-========================================================= */
-
-function renderNotes(element, notes) {
-
-    if (!element) return;
-
-    const values =
-        Array.isArray(notes)
-            ? notes
-            : [];
-
-    element.innerHTML =
-        values.length
-            ? values
-                .map(note =>
-                    `<span>${escapeHTML(note)}</span>`
-                )
-                .join("")
-            : "<span>—</span>";
-}
-
-
-/* =========================================================
    MEDIA GALLERY
 ========================================================= */
 
 function renderGallery(media) {
 
-    if (!Array.isArray(media)) {
+    if (!productImage) return;
+
+    // Sort by the Order column exposed by the product API.
+    // If an order value is absent, retain the API's original sequence.
+    productMediaItems = (Array.isArray(media) ? media : [])
+        .map((item, originalIndex) => ({
+            ...item,
+            _originalIndex: originalIndex,
+            _displayOrder: getMediaOrder(item)
+        }))
+        .filter(item => item.url)
+        .sort((a, b) => {
+            const aHasOrder = Number.isFinite(a._displayOrder);
+            const bHasOrder = Number.isFinite(b._displayOrder);
+
+            if (aHasOrder && bHasOrder && a._displayOrder !== b._displayOrder) {
+                return a._displayOrder - b._displayOrder;
+            }
+
+            if (aHasOrder !== bHasOrder) {
+                return aHasOrder ? -1 : 1;
+            }
+
+            return a._originalIndex - b._originalIndex;
+        });
+
+    if (!productMediaItems.length) {
+        productImage.removeAttribute("src");
+        productImage.alt = "";
+        productImage.hidden = true;
+
+        if (productGalleryThumbnails) {
+            productGalleryThumbnails.replaceChildren();
+            productGalleryThumbnails.hidden = true;
+        }
         return;
     }
 
-    /*
-     * The existing product page currently has
-     * one main image.
-     *
-     * For now we use the first media as the main image.
-     *
-     * We'll enhance this into a proper gallery
-     * once the basic data flow is confirmed.
-     */
+    productImage.hidden = false;
+    selectGalleryImage(0);
 
-    if (!media.length || !productImage) {
+    if (!productGalleryThumbnails) return;
+
+    productGalleryThumbnails.replaceChildren();
+
+    if (productMediaItems.length < 2) {
+        productGalleryThumbnails.hidden = true;
         return;
     }
 
-    productImage.src =
-        media[0].url;
+    productMediaItems.forEach((item, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "product-gallery-thumbnail";
+        button.setAttribute("aria-label", `View product image ${index + 1}`);
+        button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+
+        const thumbnail = document.createElement("img");
+        thumbnail.src = item.url;
+        thumbnail.alt = "";
+        thumbnail.loading = "lazy";
+
+        button.appendChild(thumbnail);
+        button.addEventListener("click", () => selectGalleryImage(index));
+        productGalleryThumbnails.appendChild(button);
+    });
+
+    productGalleryThumbnails.hidden = false;
+}
+
+
+function getMediaOrder(item) {
+    const rawOrder =
+        item?.order ??
+        item?.Order ??
+        item?.display_order ??
+        item?.sort_order ??
+        item?.media_order;
+
+    if (rawOrder === null || rawOrder === undefined || String(rawOrder).trim() === "") {
+        return Number.NaN;
+    }
+
+    const parsedOrder = Number(rawOrder);
+    console.log(parsedOrder)
+    return Number.isFinite(parsedOrder) ? parsedOrder : Number.NaN;
+}
+
+
+function selectGalleryImage(index) {
+    const item = productMediaItems[index];
+    if (!item || !productImage) return;
+
+    productImage.src = item.url;
+    productImage.alt = `${currentProduct?.name || "Selvora"} fragrance image ${index + 1}`;
+
+    if (!productGalleryThumbnails) return;
+
+    productGalleryThumbnails
+        .querySelectorAll(".product-gallery-thumbnail")
+        .forEach((button, buttonIndex) => {
+            button.setAttribute(
+                "aria-pressed",
+                buttonIndex === index ? "true" : "false"
+            );
+        });
 }
 
 
@@ -493,7 +509,7 @@ addToCartButton?.addEventListener(
                     currentProduct.currency,
 
                 image:
-                    currentProduct.media?.[0]?.url || "",
+                    productMediaItems[0]?.url || currentProduct.media?.[0]?.url || "",
 
                 quantity:
                     quantity
@@ -644,6 +660,57 @@ function showError(message) {
                 message;
         }
     }
+}
+
+
+/* =========================================================
+   DESCRIPTION FORMATTING
+========================================================= */
+
+// Render only a small allowlist of formatting tags. Escape all text and
+// unsupported tags so arbitrary HTML or scripts cannot be injected.
+function renderDescriptionHTML(value) {
+    const allowedTags = new Set([
+        "br", "bold", "b", "strong", "i", "em", "p", "h2", "h3", "h4", "ul", "li"
+    ]);
+
+    const source = String(value ?? "");
+    const tokenPattern = /<\/?[a-zA-Z][^>]*>/g;
+    let output = "";
+    let lastIndex = 0;
+    let match;
+
+    while ((match = tokenPattern.exec(source)) !== null) {
+        output += escapeHTML(source.slice(lastIndex, match.index));
+        const token = match[0];
+        const tagMatch = token.match(/^<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)\s*(\/?)\s*>$/);
+
+        if (!tagMatch) {
+            output += escapeHTML(token);
+        } else {
+            const closing = Boolean(tagMatch[1]);
+            const tag = tagMatch[2].toLowerCase();
+            const selfClosing = Boolean(tagMatch[3]);
+
+            if (!allowedTags.has(tag)) {
+                output += escapeHTML(token);
+            } else if (tag === "br") {
+                output += "<br>";
+            } else {
+                const outputTag = tag === "bold" ? "strong" : tag;
+                if (closing) {
+                    output += `</${outputTag}>`;
+                } else {
+                    output += `<${outputTag}>`;
+                    if (selfClosing) output += `</${outputTag}>`;
+                }
+            }
+        }
+        lastIndex = tokenPattern.lastIndex;
+    }
+
+    output += escapeHTML(source.slice(lastIndex));
+    return output;
 }
 
 
