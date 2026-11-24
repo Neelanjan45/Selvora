@@ -46,15 +46,6 @@ const productTagline =
 const productDescription =
     document.querySelector("#productDescription");
 
-const topNotes =
-    document.querySelector("#topNotes");
-
-const heartNotes =
-    document.querySelector("#heartNotes");
-
-const baseNotes =
-    document.querySelector("#baseNotes");
-
 const productSize =
     document.querySelector("#productSize");
 
@@ -224,28 +215,8 @@ function renderProduct(product) {
 
 
     if (productDescription) {
-
-        productDescription.textContent =
-            product.description || "";
+        productDescription.innerHTML = renderDescriptionHTML(product.description || "");
     }
-
-
-    renderNotes(
-        topNotes,
-        product.notes?.top
-    );
-
-    renderNotes(
-        heartNotes,
-        product.notes?.heart
-    );
-
-    renderNotes(
-        baseNotes,
-        product.notes?.base
-    );
-
-
     if (productSize) {
 
         productSize.textContent =
@@ -270,30 +241,6 @@ function renderProduct(product) {
     productLoading.hidden = true;
     productError.hidden = true;
     productContent.hidden = false;
-}
-
-
-/* =========================================================
-   NOTES
-========================================================= */
-
-function renderNotes(element, notes) {
-
-    if (!element) return;
-
-    const values =
-        Array.isArray(notes)
-            ? notes
-            : [];
-
-    element.innerHTML =
-        values.length
-            ? values
-                .map(note =>
-                    `<span>${escapeHTML(note)}</span>`
-                )
-                .join("")
-            : "<span>—</span>";
 }
 
 
@@ -387,6 +334,7 @@ function getMediaOrder(item) {
     }
 
     const parsedOrder = Number(rawOrder);
+    console.log(parsedOrder)
     return Number.isFinite(parsedOrder) ? parsedOrder : Number.NaN;
 }
 
@@ -712,6 +660,57 @@ function showError(message) {
                 message;
         }
     }
+}
+
+
+/* =========================================================
+   DESCRIPTION FORMATTING
+========================================================= */
+
+// Render only a small allowlist of formatting tags. Escape all text and
+// unsupported tags so arbitrary HTML or scripts cannot be injected.
+function renderDescriptionHTML(value) {
+    const allowedTags = new Set([
+        "br", "bold", "b", "strong", "i", "em", "p", "h2", "h3", "h4", "ul", "li"
+    ]);
+
+    const source = String(value ?? "");
+    const tokenPattern = /<\/?[a-zA-Z][^>]*>/g;
+    let output = "";
+    let lastIndex = 0;
+    let match;
+
+    while ((match = tokenPattern.exec(source)) !== null) {
+        output += escapeHTML(source.slice(lastIndex, match.index));
+        const token = match[0];
+        const tagMatch = token.match(/^<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)\s*(\/?)\s*>$/);
+
+        if (!tagMatch) {
+            output += escapeHTML(token);
+        } else {
+            const closing = Boolean(tagMatch[1]);
+            const tag = tagMatch[2].toLowerCase();
+            const selfClosing = Boolean(tagMatch[3]);
+
+            if (!allowedTags.has(tag)) {
+                output += escapeHTML(token);
+            } else if (tag === "br") {
+                output += "<br>";
+            } else {
+                const outputTag = tag === "bold" ? "strong" : tag;
+                if (closing) {
+                    output += `</${outputTag}>`;
+                } else {
+                    output += `<${outputTag}>`;
+                    if (selfClosing) output += `</${outputTag}>`;
+                }
+            }
+        }
+        lastIndex = tokenPattern.lastIndex;
+    }
+
+    output += escapeHTML(source.slice(lastIndex));
+    return output;
 }
 
 
